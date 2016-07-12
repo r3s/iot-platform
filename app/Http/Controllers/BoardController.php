@@ -45,7 +45,7 @@ class BoardController extends Controller
 
             $hasher = new Hasher;
             $randKey = Auth::user()->name.''.time();
-            $randPass = Auth::user()->name.''.date('YmdHis')
+            $randPass = Auth::user()->name.''.date('YmdHis');
             
 
             $board = new Board;
