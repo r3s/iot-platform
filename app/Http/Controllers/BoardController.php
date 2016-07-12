@@ -45,13 +45,13 @@ class BoardController extends Controller
 
             $hasher = new Hasher;
             $randKey = Auth::user()->name.''.time();
-            $randPass = $hasher->create_hash(Auth::user()->name.''.date('YmdHis'));
+            $randPass = Auth::user()->name.''.date('YmdHis')
             
 
             $board = new Board;
             $board->name = $request->name;
             $board->key = md5($randKey);
-            $board->password = $randPass;
+            $board->password = sha1($randPass);
             $board->user_id = Auth::user()->id;
             $board->touch();
             
@@ -65,7 +65,7 @@ class BoardController extends Controller
             
             $mqttUser = new MQTTUser;
             $mqttUser->username = $board->key;
-            $mqttUser->pw = $board->password;
+            $mqttUser->pw = $hasher->create_hash($board->pass);;
             $mqttUser->super = false;
             $mqttUser->save();
 
