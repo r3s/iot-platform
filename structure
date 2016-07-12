@@ -1,0 +1,6 @@
+User [id, pass, token]
+=Board [id, key]
+=Board [id, key]
+---Device 1
+---Device 2
+---Device 3
