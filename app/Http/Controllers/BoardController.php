@@ -77,7 +77,7 @@ class BoardController extends Controller
             
             $mqttUser = new MQTTUser;
             $mqttUser->username = $board->key;
-            $mqttUser->pw = $hasher->create_hash($board->pass);;
+            $mqttUser->pw = $hasher->create_hash($board->password);;
             $mqttUser->super = false;
             $mqttUser->save();
 
@@ -147,7 +147,7 @@ class BoardController extends Controller
                                 return 'YES';
                             })
                             ->addColumn('actions', function($data){
-                                $str = '<a href="#" class="btn btn-success btn-circle"><i class="fa fa-search-plus"></i></a><a href="#" class="btn btn-primary btn-circle"><i class="fa fa-pencil"></i></a><a href="#" class="btn btn-warning btn-circle"><i class="fa fa-trash"></i></a>';
+                                $str = '<a href="'.route('board.show',$data->id).'" class="btn btn-success btn-circle"><i class="fa fa-search-plus"></i></a><a href="#" class="btn btn-primary btn-circle"><i class="fa fa-pencil"></i></a><a href="#" class="btn btn-warning btn-circle"><i class="fa fa-trash"></i></a>';
                                 return $str;
                             })
                             ->removeColumn('id')

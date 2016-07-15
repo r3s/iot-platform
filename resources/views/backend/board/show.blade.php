@@ -1,4 +1,5 @@
 @extends('backend.layouts.default')
+
 @section('main-content')
 <div class="content-wrapper">
 			<div class="container-fluid">
@@ -10,64 +11,10 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-3">
-										<div class="panel panel-default">
-											<div class="panel-body bk-primary text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">
-														<a href="#">
-															<i class="fa fa-plus"></i>
-														</a>
-													</div>
-													<div class="stat-panel-title text-uppercase">Board</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="panel panel-default">
-											<div class="panel-body bk-success text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">8</div>
-													<div class="stat-panel-title text-uppercase">Support Tickets</div>
-												</div>
-											</div>
-											<a href="#" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="panel panel-default">
-											<div class="panel-body bk-info text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">58</div>
-													<div class="stat-panel-title text-uppercase">New Orders</div>
-												</div>
-											</div>
-											<a href="#" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="panel panel-default">
-											<div class="panel-body bk-warning text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">18</div>
-													<div class="stat-panel-title text-uppercase">New Comments</div>
-												</div>
-											</div>
-											<a href="#" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12">
 								<div class="panel panel-default">
 									<div class="panel-heading">Board Details</div>
 									<div class="panel-body">
-                                        <table>
+										<table class="display table table-striped table-bordered table-hover">
                                             <tbody>
                                                 <tr>
                                                     <td>Name</td>
@@ -78,22 +25,81 @@
                                                     <td>{{$board->key}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Password</td>
+                                                    <td>Board Password</td>
                                                     <td>{{$board->password}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
-										<div id="legendDiv"></div>
-										<a href="{{route('device.create')}}" class="btn btn-primary">Create a device under this board</a>
+										
 										<div id="legendDiv"></div>
 									</div>
 								</div>
 							</div>
 						</div>
 
+
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="panel panel-default">
+									<div class="panel-heading">Connected Devices</div>
+									<div class="panel-body">
+										@if(count($board->devices)>0)
+										<table class="display table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Type</th>
+													<th>Created At</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach ($board->devices as $device)
+													<tr>
+														<td>$device->name</td>
+														<td>$device->display_type->name</td>
+														<td>$device->created_at</td>
+														<td>
+															<a href="{{route('device.show',$device->id)}}" class="btn btn-primary btn-circle">
+																<i class="fa fa-search-plus"></i>
+															</a>
+														</td>
+													</tr>	
+												@endforeach
+											</tbody>
+										</table>
+
+										@else
+										<p>No data to display</p>
+										@endif
+
+										
+										<div id="legendDiv"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
 					</div>
 				</div>
 
 			</div>
 		</div>
+@stop
+
+@section('extra-js')
+<script type="text/javascript">
+	$(document).ready(function(){
+	    var boards = '{{ route('board.table') }}';
+	    var reqTable = $('#boards').DataTable({
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": boards,
+	        
+	    });
+	});
+</script>
 @stop
