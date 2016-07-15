@@ -1,4 +1,5 @@
 @extends('backend.layouts.default')
+
 @section('main-content')
 <div class="content-wrapper">
 			<div class="container-fluid">
@@ -10,64 +11,10 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-3">
-										<div class="panel panel-default">
-											<div class="panel-body bk-primary text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">
-														<a href="#">
-															<i class="fa fa-plus"></i>
-														</a>
-													</div>
-													<div class="stat-panel-title text-uppercase">Board</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="panel panel-default">
-											<div class="panel-body bk-success text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">8</div>
-													<div class="stat-panel-title text-uppercase">Support Tickets</div>
-												</div>
-											</div>
-											<a href="#" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="panel panel-default">
-											<div class="panel-body bk-info text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">58</div>
-													<div class="stat-panel-title text-uppercase">New Orders</div>
-												</div>
-											</div>
-											<a href="#" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="panel panel-default">
-											<div class="panel-body bk-warning text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">18</div>
-													<div class="stat-panel-title text-uppercase">New Comments</div>
-												</div>
-											</div>
-											<a href="#" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12">
 								<div class="panel panel-default">
 									<div class="panel-heading">Device Details</div>
 									<div class="panel-body">
-                                        <table>
+										<table class="display table table-striped table-bordered table-hover">
                                             <tbody>
                                                 <tr>
                                                     <td>Name</td>
@@ -79,7 +26,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Device Type</td>
-                                                    <td>{{$device->display_type}}</td>
+                                                    <td>{{$device->type()}}</td>
                                                 </tr>
                                                 <tr>
                                                 	<td>Output Enabled</td>
@@ -97,17 +44,59 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-										<div id="legendDiv"></div>
-										<a href="{{route('device.create')}}" class="btn btn-primary">Create a device under this board</a>
+										
 										<div id="legendDiv"></div>
 									</div>
 								</div>
 							</div>
 						</div>
 
+
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="panel panel-default">
+									<div class="panel-heading">History</div>
+									<div class="panel-body">
+										
+
+										
+										<div id="legendDiv"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="panel panel-default">
+									<div class="panel-heading">Update</div>
+									<div class="panel-body value-change">
+										
+										@include('snippets.switch',['device'=>$device])
+										<div id="legendDiv"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
 					</div>
 				</div>
 
 			</div>
 		</div>
+@stop
+
+@section('extra-js')
+<script type="text/javascript">
+	$(document).ready(function(){
+	    var boards = '{{ route('board.table') }}';
+	    var reqTable = $('#boards').DataTable({
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": boards,
+	        
+	    });
+	});
+</script>
 @stop

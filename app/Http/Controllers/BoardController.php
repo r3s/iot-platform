@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
+
+use Carbon\Carbon;
+
 use App\Http\Requests;
 use App\Board;
 use App\MQTTUser;
 use App\Hasher;
 use Auth;
+use Datatables;
 
 class BoardController extends Controller
 {
@@ -20,7 +24,7 @@ class BoardController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.board.index')->withTitle('Board');
     }
 
     /**
@@ -119,6 +123,31 @@ class BoardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function getTable()
+    {
+        $boards =Auth::user()->boards;
+
+        return Datatables::of($boards)
+                            ->editColumn('created_at', function($data){
+                                $dt = new Carbon($data->created_at);
+                                return $dt->toFormattedDateString();
+                            })
+                            ->addColumn('active', function($data){
+                                return 'YES';
+                            })
+                            ->addColumn('actions', function($data){
+                                $str = '<a href="#" class="btn btn-success btn-circle"><i class="fa fa-search-plus"></i></a><a href="#" class="btn btn-primary btn-circle"><i class="fa fa-pencil"></i></a><a href="#" class="btn btn-warning btn-circle"><i class="fa fa-trash"></i></a>';
+                                return $str;
+                            })
+                            ->removeColumn('id')
+                            ->removeColumn('key')
+                            ->removeColumn('password')
+                            ->removeColumn('user_id')
+                            ->removeColumn('updated_at')
+                            ->make();
     }
 
 }

@@ -13,56 +13,31 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="panel panel-default">
-											<div class="panel-body bk-primary text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">
-														<a href="{{ route('board.create') }}">
-															<i class="fa fa-plus"></i>
-														</a>
-													</div>
-													<div class="stat-panel-title text-uppercase">Add Device</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="panel panel-default">
 											<div class="panel-body bk-success text-light">
 												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">8</div>
-													<div class="stat-panel-title text-uppercase">Support Tickets</div>
+													<div class="stat-panel-number h1 ">{{$boardCount}}</div>
+													<div class="stat-panel-title text-uppercase">Boards</div>
 												</div>
 											</div>
-											<a href="#" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
+											<a href="{{route('board.create')}}" class="block-anchor panel-footer text-center">Create New Board&nbsp; <i class="fa fa-plus"></i></a>
 										</div>
 									</div>
 									<div class="col-md-3">
 										<div class="panel panel-default">
 											<div class="panel-body bk-info text-light">
 												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">58</div>
-													<div class="stat-panel-title text-uppercase">New Orders</div>
+													<div class="stat-panel-number h1 ">{{$deviceCount}}</div>
+													<div class="stat-panel-title text-uppercase">Devices</div>
 												</div>
 											</div>
-											<a href="#" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="panel panel-default">
-											<div class="panel-body bk-warning text-light">
-												<div class="stat-panel text-center">
-													<div class="stat-panel-number h1 ">18</div>
-													<div class="stat-panel-title text-uppercase">New Comments</div>
-												</div>
-											</div>
-											<a href="#" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
+											<a href="{{route('device.create')}}" class="block-anchor panel-footer text-center">Create New Device &nbsp; <i class="fa fa-plus"></i></a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<div class="row">
+						{{-- <div class="row">
 							<div class="col-md-6">
 								<div class="panel panel-default">
 									<div class="panel-heading">Sales Report</div>
@@ -76,7 +51,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="panel panel-default">
-									<div class="panel-heading">Recent Oreders</div>
+									<div class="panel-heading">Recent Boards and Devices</div>
 									<div class="panel-body">
 										<div class="alert alert-dismissible alert-success">
 											<button type="button" class="close" data-dismiss="alert"><i class="fa fa-close"></i></button>
@@ -115,51 +90,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6">
-								<div class="panel panel-default">
-									<div class="panel-heading">Pie Chart</div>
-									<div class="panel-body">
-										<div class="row">
-											<div class="col-md-4">
-												<ul class="chart-dot-list">
-													<li class="a1">date 1</li>
-													<li class="a2">data 2</li>
-													<li class="a3">data 3</li>
-												</ul>
-											</div>
-											<div class="col-md-8">
-												<div class="chart chart-doughnut">
-													<canvas id="chart-area3" width="1200" height="900" />
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="panel panel-default">
-									<div class="panel-heading">Doughnut</div>
-									<div class="panel-body">
-										<div class="row">
-											<div class="col-md-4">
-												<ul class="chart-dot-list">
-													<li class="a1">date 1</li>
-													<li class="a2">data 2</li>
-													<li class="a3">data 3</li>
-												</ul>
-											</div>
-											<div class="col-md-8">
-												<div class="chart chart-doughnut">
-													<canvas id="chart-area4" width="1200" height="900" />
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+						</div> --}}
 						</div>
 
 					</div>
@@ -172,23 +103,22 @@
 @section('extra-js')
 <script>
 window.onload = function(){
+		// // Line chart from swirlData for dashReport
+		// var ctx = document.getElementById("dashReport").getContext("2d");
+		// window.myLine = new Chart(ctx).Line(swirlData, {
+		// 	responsive: true,
+		// 	scaleShowVerticalLines: false,
+		// 	scaleBeginAtZero : true,
+		// 	multiTooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+		// });
 
-		// Line chart from swirlData for dashReport
-		var ctx = document.getElementById("dashReport").getContext("2d");
-		window.myLine = new Chart(ctx).Line(swirlData, {
-			responsive: true,
-			scaleShowVerticalLines: false,
-			scaleBeginAtZero : true,
-			multiTooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
-		});
+		// // Pie Chart from doughutData
+		// var doctx = document.getElementById("chart-area3").getContext("2d");
+		// window.myDoughnut = new Chart(doctx).Pie(doughnutData, {responsive : true});
 
-		// Pie Chart from doughutData
-		var doctx = document.getElementById("chart-area3").getContext("2d");
-		window.myDoughnut = new Chart(doctx).Pie(doughnutData, {responsive : true});
-
-		// Dougnut Chart from doughnutData
-		var doctx = document.getElementById("chart-area4").getContext("2d");
-		window.myDoughnut = new Chart(doctx).Doughnut(doughnutData, {responsive : true});
+		// // Dougnut Chart from doughnutData
+		// var doctx = document.getElementById("chart-area4").getContext("2d");
+		// window.myDoughnut = new Chart(doctx).Doughnut(doughnutData, {responsive : true});
 
 	}
 </script>

@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests;
 
 use App\Board;
+use App\DisplayType;
 use App\Device;
 use App\MQTTAcl;
 use Auth;
+
+use Datatables;
+use Carbon\Carbon;
 
 class DeviceController extends Controller
 {
@@ -21,7 +25,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.device.index')->withTitle('Device');
     }
 
     /**
@@ -123,6 +127,56 @@ class DeviceController extends Controller
         //
     }
 
+
+    public function getTable()
+    {
+        $boards = Auth::user()->boards;
+        $devices = new \Illuminate\Database\Eloquent\Collection;
+        foreach ($boards as $board) {
+            foreach ($board->devices as $device) {
+                $devices->add($device);
+            }
+        }
+       
+
+        return Datatables::of($devices)
+                            ->addColumn('board', function($data){
+                                return $data->board->name;
+                            })
+                            ->editColumn('display_type', function($data){
+                                return DisplayType::find($data->display_type)->name;
+                            })
+                            ->editColumn('output_enabled', function($data){
+                                return ($data->output_enabled==true)?'YES':'NO';
+                            })
+                            ->editColumn('created_at', function($data){
+                                $dt = new Carbon($data->created_at);
+                                return $dt->toFormattedDateString();
+                            })
+                            ->addColumn('active', function($data){
+                                return 'YES';
+                            })
+                            ->addColumn('actions', function($data){
+                                $str = '<a href="'.route('device.show',$data->id).'" class="btn btn-success btn-circle"><i class="fa fa-search-plus"></i></a><a href="#" class="btn btn-primary btn-circle"><i class="fa fa-pencil"></i></a><a href="#" class="btn btn-warning btn-circle"><i class="fa fa-trash"></i></a>';
+                                return $str;
+                            })
+                            ->removeColumn('id')
+                            ->removeColumn('topic')
+                            ->removeColumn('board_id')
+                            ->removeColumn('updated_at')
+                            ->make();
+    }
+
+    public function updateVal($id, Request $request){
+        $device = Device::find($id);
+        $topic = $device->topic;
+        $value = $request->input('value');
+        $data = array('topic' => $topic, 'value'=>$value );
+
+        $redis = Redis::connection();
+        $redis->publish('mqtt-channel', json_encode($data));
+    }
+
     public function validator(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -132,4 +186,5 @@ class DeviceController extends Controller
         ]);
         return $validator;
     }
+
 }

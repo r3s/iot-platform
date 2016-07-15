@@ -745,3 +745,4 @@ li {
   height: 100%;
   width: 100%;
 }
+.bootstrap-switch-container span { white-space: nowrap; }

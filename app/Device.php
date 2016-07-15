@@ -23,4 +23,9 @@ class Device extends Model
     {
     	return $this->belongsTo('App\Board');
     }
+
+    public function type()
+    {
+        return DisplayType::find($this->display_type)->name;
+    }
 }

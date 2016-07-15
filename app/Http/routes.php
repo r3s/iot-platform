@@ -21,5 +21,10 @@ Route::any('logout',['as'=>'logout', 'uses'=>'LoginController@logout']);
 
 
 Route::resource('user', 'UserController');
+
+Route::get('board/table',['as'=>'board.table','uses'=>'BoardController@getTable']);
 Route::resource('board', 'BoardController');
+
+Route::get('device/table',['as'=>'device.table','uses'=>'DeviceController@getTable']);
+Route::any('device/changeval/{id}',['as'=>'device.changeval','uses'=>'DeviceController@updateVal']);
 Route::resource('device', 'DeviceController');

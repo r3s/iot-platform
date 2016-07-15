@@ -26,13 +26,15 @@ class LoginController extends Controller
 		$name 	= $request->input('name');
 		$password = $request->input('password');
 
-		$validator = $this->validator($request);
+		$validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'password' => 'required',
+        ]);
 		if(!$validator->fails()){
-			 if (Auth::attempt(['name' => $name,'password' => $password], 
-			 					$request->input('remember'))){
+			 if (Auth::attempt(['name' => $name,'password' => $password])){
 			 	return redirect()->route('user.index');
 			 }else{
-			 	$vaidator->errors()->add('password', 'The Username or Password is incorrect');
+			 	$validator->errors()->add('password', 'The Username or Password is incorrect');
 			 }
 		}
 
@@ -52,10 +54,7 @@ class LoginController extends Controller
 
 
 	public function validator(Request $request){
-		$validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'password' => 'required',
-        ]);
+		
         return $validator;
 	}
 

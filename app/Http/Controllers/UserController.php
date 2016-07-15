@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Auth;
 
 class UserController extends Controller
 {
@@ -20,7 +21,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('backend.user.index')->withTitle('My Pandora');
+        $boards = Auth::user()->boards;
+        $boardCount = count($boards);
+        $deviceCount = 0;
+        foreach ($boards as $board) {
+            $deviceCount += count($board->devices);
+        }
+        return view('backend.user.index', compact('boardCount','deviceCount'))->withTitle('My Pandora');
     }
 
     /**

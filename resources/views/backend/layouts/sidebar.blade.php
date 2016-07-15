@@ -6,15 +6,10 @@
 			<input type="text" class="ts-sidebar-search" placeholder="Search here...">
 		</li> --}}
 		<li class="ts-label">Main</li>
-		<li class="open"><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-		<li><a href="#"><i class="fa fa-desktop"></i> My Devices</a>
-			<ul>
-				<li><a href="panels.html">Active Devices</a></li>
-				<li><a href="buttons.html">Inactive Devices</a></li>
-			</ul>
-		</li>
-		<li><a href="tables.html"><i class="fa fa-table"></i>Data</a></li>
-		<li><a href="#"><i class="fa fa-cog"></i> Settings</a>
+		<li @if($title == 'My Pandora') class="open" @endif><a href="{{route('user.index')}}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+		<li @if($title == 'Boards') class="open" @endif><a href="{{ route('board.index') }}"><i class="fa fa-tty"></i> My Boards</a></li>
+		<li @if($title == 'Devices') class="open" @endif><a href="{{ route('device.index') }}"><i class="fa fa-desktop"></i> My Devices</a></li>
+		<li @if($title == 'Settings') class="open" @endif><a href="#"><i class="fa fa-cog"></i> Settings</a>
 			<ul>
 				<li><a href="blank.html">General</a></li>
 				<li><a href="login.html">Account Settings</a></li>

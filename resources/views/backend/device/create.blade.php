@@ -74,16 +74,17 @@
                                             </div>
                                             <div class="">
                                             	<div class="checkbox checkbox-primary">
-                                                	<label>Enable Output</label>
                                                 	<input type="checkbox" name="output">
+                                                	<label>Enable Output</label>
                                                 </div>
                                             </div>
                                             <div class="">
                                             	<label for="display_type" class="control-label">Device Type</label>
                                             	<select class="form-control" name="display_type">
-                                            		<option value="1">Switch</option>
-                                            		<option value="2">Sensor</option>
-                                            		<option value="3">Variable</option>
+                                            		{{ $displayTypes = DisplayType::all() }}
+                                            		@foreach ($displayTypes as $displayType)
+                                            			<option value="{{ $displayType->id }}">{{$displayType->name}}</option>
+                                            		@endforeach
                                             	</select>
                                             </div>
 											<div class="">
