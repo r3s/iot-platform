@@ -81,7 +81,7 @@
                                             <div class="">
                                             	<label for="display_type" class="control-label">Device Type</label>
                                             	<select class="form-control" name="display_type">
-                                            		{{ $displayTypes = DisplayType::all() }}
+                                            		{{ $displayTypes = App\DisplayType::all() }}
                                             		@foreach ($displayTypes as $displayType)
                                             			<option value="{{ $displayType->id }}">{{$displayType->name}}</option>
                                             		@endforeach
