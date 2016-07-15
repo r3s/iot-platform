@@ -172,7 +172,7 @@ class DeviceController extends Controller
         $device = Device::find($id);
         $topic = $device->topic;
         $value = $request->input('value');
-        $data = array('topic' => $topic, 'value'=>$value );
+        $data = array('topic' => $topic, 'value'=>$value, 'dir'=>'down' );
 
         $redis = Redis::connection();
         $redis->publish('mqtt-channel', json_encode($data));
