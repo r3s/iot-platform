@@ -57,9 +57,9 @@
 											<tbody>
 												@foreach ($board->devices as $device)
 													<tr>
-														<td>$device->name</td>
-														<td>$device->display_type->name</td>
-														<td>$device->created_at</td>
+														<td>{{$device->name}}</td>
+														<td>{{$device->display_type}}</td>
+														<td>{{$device->created_at}}</td>
 														<td>
 															<a href="{{route('device.show',$device->id)}}" class="btn btn-primary btn-circle">
 																<i class="fa fa-search-plus"></i>
@@ -74,7 +74,7 @@
 										<p>No data to display</p>
 										@endif
 
-										
+										<a href="{{route('device.create')}}" class="btn btn-primary">Create a new device connected to this board</a>
 										<div id="legendDiv"></div>
 									</div>
 								</div>

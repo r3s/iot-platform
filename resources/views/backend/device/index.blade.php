@@ -23,6 +23,7 @@
 					                                <th>Output Enabled</th>
 					                                <th>Created At</th>
 					                                <th>Board Name</th>
+					                                <th>Current Value</th>
 					                                <th>Active</th>
 					                                <th>Actions</th>
 					                            </tr>
