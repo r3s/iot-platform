@@ -32,7 +32,8 @@ class Device extends Model
 
     public function updateVal($value)
     {
-        $this->current_val = $value;
+        $this->value = ($value=='true')?true:false;
+        $this->save();
         Redis::set($this->topic,$value);
     }
 

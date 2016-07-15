@@ -1,16 +1,22 @@
 import redis
 import paho.mqtt.client as mqttP
 import json
-
+import pdb
 
 #REDIS ***********************
 def my_handler(message):
-    print 'MY HANDLER: ', message['data']
+    #print 'MY HANDLER: ', message['data']
+    #print message['data']
     data = json.loads(message['data'])
-    value = data.get('dir')
-    if value:
+    print data['topic']
+    if 'dir' in data.keys():
         data.pop('dir',None)
-        mqtt_pub(json.dumps(data))
+        topic = data['topic']
+        mqtt_pub(json.dumps(data),topic)
+    else:
+        topic = data['topic']
+        print data['value'], topic
+        r.set(topic,data['value'])
 
 
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
@@ -48,9 +54,10 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 
-def mqtt_pub(data):
+def mqtt_pub(data,topic):
     print 'PUBLISHING TO SERVER MQTT'
-    client.publish('DEV/board1/device1',data)
+    print topic
+    client.publish(topic,data)
 
 
 client.connect("127.0.0.1", 1883, 60)

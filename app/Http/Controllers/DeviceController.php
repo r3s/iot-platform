@@ -170,8 +170,10 @@ class DeviceController extends Controller
     public function updateVal($id, Request $request){
         $device = Device::find($id);
         $topic = $device->topic;
+        $boardId = $device->board->key;
+        $fullTopic = $boardId.'/'.$topic;
         $value = $request->input('value');
-        $data = array('topic' => $topic, 'value'=>$value, 'dir'=>'down' );
+        $data = array('topic' => $fullTopic, 'value'=>$value, 'dir'=>'down' );
 
         $redis = Redis::connection();
         $redis->publish('mqtt-channel', json_encode($data));
