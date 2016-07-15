@@ -7,7 +7,7 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Dashboard</h2>
+						<h2 class="page-title">Devices</h2>
 
 						<div class="row">
 							<div class="col-md-12">

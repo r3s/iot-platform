@@ -26,4 +26,5 @@ Route::resource('board', 'BoardController');
 
 Route::get('device/table',['as'=>'device.table','uses'=>'DeviceController@getTable']);
 Route::any('device/changeval/{id}',['as'=>'device.changeval','uses'=>'DeviceController@updateVal']);
+Route::any('device/getval/{id}',['as'=>'device.getval','uses'=>'DeviceController@getVal']);
 Route::resource('device', 'DeviceController');

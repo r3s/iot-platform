@@ -32,7 +32,7 @@ class BoardController extends Controller
      */
     public function index()
     {
-        return view('backend.board.index')->withTitle('Board');
+        return view('backend.board.index')->withTitle('Boards');
     }
 
     /**
@@ -42,7 +42,7 @@ class BoardController extends Controller
      */
     public function create()
     {
-        return view('backend.board.create')->withTitle('New Board');
+        return view('backend.board.create')->withTitle('Boards');
     }
 
     /**
@@ -96,7 +96,7 @@ class BoardController extends Controller
         $board = Board::find($id);
         return view('backend.board.show')
                     ->withBoard($board)
-                    ->withTitle('Board');
+                    ->withTitle('Boards');
     }
 
     /**

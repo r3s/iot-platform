@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{{ asset('css/fileinput.min.css') }}">
 <!-- Awesome Bootstrap checkbox -->
 <link rel="stylesheet" href="{{ asset('css/awesome-bootstrap-checkbox.css') }}">
+<link rel="stylesheet" href="{{ asset('css/slider.css') }}">
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 <!-- Any extra css -->

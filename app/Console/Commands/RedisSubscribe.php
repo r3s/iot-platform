@@ -32,7 +32,7 @@ class RedisSubscribe extends Command
 
             $data = json_decode($message);
             if($data){
-                
+                Redis::set($data->topic,$data->value);
             }
 
         });

@@ -8,12 +8,26 @@
 				var route = '{{route('device.changeval', $device->id)}}';
 				var check = $(this).prop('checked');
 				$.get(route, {value:check}, function(data){
-					console.log(data.status);
 					if(data.status != 'success'){
-						setTimeout(function(){$("#switch").bootstrapToggle('off');}, 1000);
+						$("#switch").bootstrapToggle('off');
 					}
 				});	
 		});
+
+		function poll(){
+			var route = '{{route('device.getval',$device->id)}}';
+			$.get(route,function(data){
+				if(data.value != null || data.value != undefined){
+					if(data.value == 'true')
+						$("#switch").bootstrapToggle('on');
+					else
+						$("#switch").bootstrapToggle('off');
+				}
+			});
+			setTimeout(poll,1000);
+		}
+
+		setTimeout(poll, 1000);
 	})
 </script>
 @stop

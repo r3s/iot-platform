@@ -7,7 +7,7 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Dashboard</h2>
+						<h2 class="page-title">Device Details</h2>
 
 						<div class="row">
 							<div class="col-md-12">
@@ -71,7 +71,7 @@
 									<div class="panel-heading">Update</div>
 									<div class="panel-body value-change">
 										
-										@include('snippets.switch',['device'=>$device])
+										@include('snippets.'.strtolower($device->type()),['device'=>$device])
 										<div id="legendDiv"></div>
 									</div>
 								</div>

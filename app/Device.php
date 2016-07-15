@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Redis;
 
 class Device extends Model
 {
@@ -27,5 +28,15 @@ class Device extends Model
     public function type()
     {
         return DisplayType::find($this->display_type)->name;
+    }
+
+    public function updateVal($value)
+    {
+        $this->current_val = $value;
+        Redis::set($this->topic,$value);
+    }
+
+    public function currentVal(){
+        return Redis::get($this->topic);
     }
 }

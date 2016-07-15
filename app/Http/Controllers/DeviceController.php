@@ -13,7 +13,6 @@ use App\DisplayType;
 use App\Device;
 use App\MQTTAcl;
 use Auth;
-
 use Datatables;
 use Carbon\Carbon;
 
@@ -26,7 +25,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        return view('backend.device.index')->withTitle('Device');
+        return view('backend.device.index')->withTitle('Devices');
     }
 
     /**
@@ -39,7 +38,7 @@ class DeviceController extends Controller
         $boards = Board::all();
         return view('backend.device.create')
                 ->withBoards($boards)
-                ->withTitle('New Device');
+                ->withTitle('Devices');
     }
 
     /**
@@ -91,7 +90,7 @@ class DeviceController extends Controller
         $device = Device::find($id);
         return view('backend.device.show')
                 ->withDevice($device)
-                ->withTitle('Device');
+                ->withTitle('Devices');
     }
 
     /**
@@ -176,8 +175,15 @@ class DeviceController extends Controller
 
         $redis = Redis::connection();
         $redis->publish('mqtt-channel', json_encode($data));
-
+        $device->updateVal($value);
         return response()->json(['status'=>'success']);
+    }
+
+    public function getVal($id)
+    {
+        $device = Device::find($id);
+        $value = $device->currentVal();
+        return response()->json(['value'=>$value]);
     }
 
     public function validator(Request $request)
