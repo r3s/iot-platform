@@ -1,4 +1,4 @@
-<input id="switch" type="checkbox" data-size="large" @if($device->value) checked @endif data-toggle="toggle">
+<input id="switch" type="checkbox" data-size="large" @if($device->currentVal()) checked @endif data-toggle="toggle">
 
 @section('extra-js')
 <script type="text/javascript">
@@ -16,14 +16,16 @@
 
 		function poll(){
 			var route = '{{route('device.getval',$device->id)}}';
-			$.get(route,function(data){
-				if(data.value != null || data.value != undefined){
-					if(data.value == 'true')
-						$("#switch").bootstrapToggle('on');
-					else
-						$("#switch").bootstrapToggle('off');
-				}
-			});
+			// $.get(route,function(data){
+			// 	if(data.value != null || data.value != undefined){
+			// 		if(data.value == 'true')
+			// 			$("#switch").bootstrapToggle('on');
+			// 		else
+			// 			$("#switch").bootstrapToggle('off');
+			// 	}
+			// });
+			var val = '{{$device->currentVal()}}';
+			console.log(val);
 			setTimeout(poll,1000);
 		}
 

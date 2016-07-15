@@ -186,6 +186,11 @@ class DeviceController extends Controller
         return response()->json(['value'=>$value]);
     }
 
+    /**
+     * Validate request
+     * @param  Request $request 
+     * @return Validator
+     */
     public function validator(Request $request)
     {
         $validator = Validator::make($request->all(), [
