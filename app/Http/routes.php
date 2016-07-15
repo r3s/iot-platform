@@ -21,7 +21,6 @@ Route::any('logout',['as'=>'logout', 'uses'=>'LoginController@logout']);
 
 
 Route::resource('user', 'UserController');
-
 Route::get('board/table',['as'=>'board.table','uses'=>'BoardController@getTable']);
 Route::resource('board', 'BoardController');
 

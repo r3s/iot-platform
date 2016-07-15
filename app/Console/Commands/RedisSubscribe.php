@@ -31,7 +31,9 @@ class RedisSubscribe extends Command
         Redis::psubscribe(['mqtt-channel'], function($message) {
 
             $data = json_decode($message);
-            var_dump($data->on);
+            if($data){
+                
+            }
 
         });
     }

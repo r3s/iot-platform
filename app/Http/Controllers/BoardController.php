@@ -15,6 +15,14 @@ use App\Hasher;
 use Auth;
 use Datatables;
 
+
+    define("PBKDF2_HASH_ALGORITHM", "sha256");
+        define("PBKDF2_ITERATIONS", 901);
+        define("PBKDF2_SALT_BYTE_SIZE", 12);
+        define("PBKDF2_HASH_BYTE_SIZE", 24);
+        define("SEPARATOR", "$");
+        define("TAG", "PBKDF2");
+
 class BoardController extends Controller
 {
     /**
@@ -99,7 +107,7 @@ class BoardController extends Controller
      */
     public function edit($id)
     {
-        //
+       //
     }
 
     /**
@@ -128,7 +136,7 @@ class BoardController extends Controller
 
     public function getTable()
     {
-        $boards =Auth::user()->boards;
+        $boards = Auth::user()->boards;
 
         return Datatables::of($boards)
                             ->editColumn('created_at', function($data){
