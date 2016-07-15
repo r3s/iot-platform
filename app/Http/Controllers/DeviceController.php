@@ -176,6 +176,8 @@ class DeviceController extends Controller
 
         $redis = Redis::connection();
         $redis->publish('mqtt-channel', json_encode($data));
+
+        return response()->json(['status'=>'success']);
     }
 
     public function validator(Request $request)
