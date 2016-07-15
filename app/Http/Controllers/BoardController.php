@@ -62,7 +62,7 @@ class BoardController extends Controller
 
             $board = new Board;
             $board->name = $request->name;
-            $board->key = md5($randKey);
+            $board->key = 'DEV/'.md5($randKey);
             $board->password = sha1($randPass);
             $board->user_id = Auth::user()->id;
             $board->touch();
