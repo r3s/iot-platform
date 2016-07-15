@@ -4,14 +4,18 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#switch").bootstrapToggle();
+		var prevVal = $("#switch").prop('checked');
 		$("#switch").change(function(){
+			var check = $(this).prop('checked');
+			if(check != prevVal){
+				prevVal = check;
 				var route = '{{route('device.changeval', $device->id)}}';
-				var check = $(this).prop('checked');
 				$.get(route, {value:check}, function(data){
 					if(data.status != 'success'){
 						$("#switch").bootstrapToggle('off');
 					}
 				});	
+			}
 		});
 
 		function poll(){
