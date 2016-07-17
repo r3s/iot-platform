@@ -1,5 +1,11 @@
 <input id="switch" type="checkbox" data-size="large" @if($device->currentVal()) checked @endif data-toggle="toggle">
 
+<br><br>
+
+<div >
+	<p>Current Value: <span id="curValue"></span></p>
+</div>
+
 @section('extra-js')
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -47,12 +53,14 @@
 					// $("#switch").bootstrapToggle('disable');
 					console.log('if');
 					$("#switch").bootstrapToggle('on');
+					$("#curValue").val('TRUE');
 					// $("#switch").bootstrapToggle('enable');
 				}
 				else{
 					// $("#switch").bootstrapToggle('disable');
 					console.log('else');
 					$("#switch").bootstrapToggle('off');
+					$("#curValue").val('FALSE');
 					// $("#switch").bootstrapToggle('disable');
 				}
 				//timeout
